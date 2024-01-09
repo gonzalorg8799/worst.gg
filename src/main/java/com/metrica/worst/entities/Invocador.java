@@ -40,7 +40,7 @@ public class Invocador {
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
-	public List<String> getPartidas() {
+	public List<Partida> getPartidas() {
 		return partidas;
 	}
 	public void setPartidas(List<Partida> partidas) {
