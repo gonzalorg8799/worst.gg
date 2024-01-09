@@ -4,6 +4,10 @@ public class Partida {
 
 	private String partidaId;
 	
+	public Partida(String partidaId) {
+		this.partidaId=partidaId;
+	}
+	
 	public String getPartidaId() {
 		return partidaId;
 	}
