@@ -67,4 +67,50 @@ public class InvocadorTest {
         assertTrue(invocador.getWinrateCampeon().contains(70.0));
         assertTrue(invocador.getWinrateCampeon().contains(80.0));
     }
+    @Test
+    public void testSetPartidas() {
+        List<Partida> nuevasPartidas = Arrays.asList(new Partida("123456"), new Partida("789012"));
+        invocador.setPartidas(nuevasPartidas);
+
+        assertEquals(nuevasPartidas, invocador.getPartidas());
+    }
+
+    @Test
+    public void testSetCampeones() {
+        List<Campeon> nuevosCampeones = Arrays.asList(new Campeon("nombreCampeon", 50.0, "championId",new Maestria(7,5000)));
+        invocador.setCampeones(nuevosCampeones);
+
+        assertEquals(nuevosCampeones, invocador.getCampeones());
+    }
+
+    @Test
+    public void testSetWinrateSoloQ() {
+        double nuevoWinrateSoloQ = 70.0;
+        invocador.setWinrateSoloQ(nuevoWinrateSoloQ);
+
+        assertEquals(nuevoWinrateSoloQ, invocador.getWinrateSoloQ());
+    }
+
+    @Test
+    public void testSetWinrateFlex() {
+        double nuevoWinrateFlex = 75.0;
+        invocador.setWinrateFlex(nuevoWinrateFlex);
+
+        assertEquals(nuevoWinrateFlex, invocador.getWinrateFlex());
+    }
+
+    @Test
+    public void testSetWinrateNormal() {
+        double nuevoWinrateNormal = 80.0;
+        invocador.setWinrateNormal(nuevoWinrateNormal);
+
+        assertEquals(nuevoWinrateNormal, invocador.getWinrateNormal());
+    }
+    @Test
+    public void testSetWinrateCampeon() {
+        List<Double> nuevoWinrateCampeon = Arrays.asList(70.0, 75.0, 85.0);
+        invocador.setWinrateCampeon(nuevoWinrateCampeon);
+
+        assertEquals(nuevoWinrateCampeon, invocador.getWinrateCampeon());
+    }
 }
