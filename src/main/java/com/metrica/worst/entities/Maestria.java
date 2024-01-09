@@ -4,7 +4,7 @@ public class Maestria {
 
 	// <<----FIELDS--->
 
-	private Integer championLevel;
+	private Integer  championLevel;
 	private Integer championPoints;
 
 	// <<----CONSTRUCTOR--->
