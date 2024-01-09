@@ -26,7 +26,7 @@ public class InvocadorTest {
 
     @Test
     public void testGetNombre() {
-        assertEquals("Nombre", invocador.getNombre());
+        assertEquals("Nombre", invocador.getNombre()); 
     }
 
     @Test
