@@ -1,7 +1,5 @@
 package com.metrica.worst.entities;
 
-import java.util.Objects;
-
 public class Campeon {
 
 //	<<--ATRIBUTES-->>	
