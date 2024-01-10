@@ -27,7 +27,8 @@ public class CampeonTest {
 		assertEquals("Aatrox", campeon.getNombre());
 		assertEquals(47, campeon.getWinRate());
 		assertEquals("147", campeon.getChampionId());
-		assertEquals(comparar, campeon.getMaestria());
+		assertEquals(comparar.getChampionLevel(), campeon.getMaestria().getChampionLevel());
+		assertEquals(comparar.getChampionPoints(), campeon.getMaestria().getChampionPoints());
 		
 		campeon.setNombre("Frederick");
 		campeon.setWinRate(53.45);
@@ -37,7 +38,8 @@ public class CampeonTest {
 		assertEquals("Frederick", campeon.getNombre());
 		assertEquals(53.45, campeon.getWinRate());
 		assertEquals("200", campeon.getChampionId());
-		assertEquals(nuevaMaestriaComparar, campeon.getMaestria());
+		assertEquals(nuevaMaestriaComparar.getChampionLevel(), campeon.getMaestria().getChampionLevel());
+		assertEquals(nuevaMaestriaComparar.getChampionPoints(), campeon.getMaestria().getChampionPoints());
 	}
 	
 }

@@ -1,5 +1,7 @@
 package com.metrica.worst.entities;
 
+import java.util.Objects;
+
 public class Campeon {
 
 //	<<--ATRIBUTES-->>	
@@ -48,4 +50,5 @@ public class Campeon {
 	public void setMaestria(Maestria maestria) {
 		this.maestria = maestria;
 	}
+	
 }
