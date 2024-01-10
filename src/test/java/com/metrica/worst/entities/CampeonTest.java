@@ -23,7 +23,7 @@ public class CampeonTest {
 	}
 	
 	@Test
-	public void testSetters() {
+	public void testSettersGetters() {
 		assertEquals("Aatrox", campeon.getNombre());
 		assertEquals(47, campeon.getWinRate());
 		assertEquals("147", campeon.getChampionId());
@@ -39,4 +39,5 @@ public class CampeonTest {
 		assertEquals("200", campeon.getChampionId());
 		assertEquals(nuevaMaestriaComparar, campeon.getMaestria());
 	}
+	
 }
