@@ -15,18 +15,17 @@ import jakarta.ws.rs.core.MediaType;
 @Service
 public class TiempoJugado {
 	private String puuid;
-	private String apiKey;
+	private final String apiKey = "";
 	
-	public TiempoJugado(String puuid, String apiKey) {
+	public TiempoJugado(String puuid) {
 		this.puuid=puuid;
-		this.apiKey=apiKey;
+
 	}
 	public TiempoJugado() {
 		
 	}
-	public String get(String puuid, String apiKey) {
+	public String get(String puuid) {
 		this.puuid=puuid;
-		this.apiKey=apiKey;
 		String url = "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/"+this.puuid+"/ids?start=0&count=20&api_key="+this.apiKey;
 		
 		Client cliente = ClientBuilder.newClient();
