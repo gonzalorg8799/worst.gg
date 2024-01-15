@@ -10,7 +10,7 @@ public class WorstApplication {
 
 	public static void main(String[] args) {
 //		SpringApplication.run(WorstApplication.class, args);
-		EstadisticasPartidaService c1 = new EstadisticasPartidaService("3590", "Karkinos", "RGAPI-751483ca-8277-40ed-811f-d267cf6d5da9");
+		EstadisticasPartidaService c1 = new EstadisticasPartidaService("top g", "Master G", "RGAPI-26d88b7e-412b-44b5-8cfd-e40e44ef056a");
 		c1.estadisticasPartida();
 	}
 	
