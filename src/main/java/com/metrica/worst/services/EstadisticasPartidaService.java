@@ -197,7 +197,6 @@ public class EstadisticasPartidaService {
 		JsonObject objJson2 = new Gson().fromJson(info, JsonObject.class);
 		JsonArray participants = objJson2.getAsJsonArray("participants");
 		
-		String container = participants.toString();
 		
 		int contador = 0;
 		String spellCasts = "";

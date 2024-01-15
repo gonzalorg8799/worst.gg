@@ -3,8 +3,6 @@ package com.metrica.worst;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.metrica.worst.services.EstadisticasPartidaService;
-
 @SpringBootApplication
 public class WorstApplication {
 
