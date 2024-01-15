@@ -1,13 +1,9 @@
 package com.metrica.worst.services;
 
-import java.util.Iterator;
-import java.util.List;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.jayway.restassured.path.json.JsonPath;
 
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -21,7 +17,8 @@ public class EstadisticasPartidaService {
 	WebTarget target;
 	
 		/*  REQUEST ATRIBUTES 	*/
-	private String PUUID_REQUEST;
+	ConseguirPuuid conseguirPuuid;
+	
 	private String MATCH_HISTORY_REQUEST;
 	private String MATCH_DATA_REQUEST;
 	private final String apiKey;
@@ -52,14 +49,16 @@ public class EstadisticasPartidaService {
 		this.apiKey				   = apiKey;
 		
 		this.cliente 			   = ClientBuilder.newClient();
+		this.conseguirPuuid = new ConseguirPuuid(tagLine, gameName);
 		
 		this.setStartHistoryTime();
 		this.setEndHistoryTime();
-		this.setPUUID_REQUEST(gameName, tagLine);
-		this.setPUUID();
+		
+		this.setPUUID(conseguirPuuid.getPUUID());
 		this.setMATCH_HISTORY_REQUEST(getPUUID());
-		this.setMatchId(apiKey);
+		this.setMatchId();
 		this.setMATCH_DATA_REQUEST(getMatchId());
+		
 		this.setSpell1Casts();
 		this.setSpell2Casts();
 		this.setSpell3Casts();
@@ -67,22 +66,11 @@ public class EstadisticasPartidaService {
 	}
 
 		/* METHODS 				*/
-	
 	public String estadisticasPartida() {
 		return "Has usado la Q: " + spell1Casts + " veces, \nHas usado la W: " + spell2Casts + " veces, \nHas usado la E: " + spell3Casts + " veces, \nHas usado la R: " + spell4Casts + " veces."; 
 	}
 	
 		/* GETTERS & SETTERS 	*/
-	public String getPUUID_REQUEST() {
-		return PUUID_REQUEST;
-	}
-
-
-	public void setPUUID_REQUEST(String gameNameSet, String tagLineSet) {
-		PUUID_REQUEST = "https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/" + gameNameSet + "/" + tagLineSet + "?api_key=" + apiKey;
-	}
-
-
 	public String getMATCH_HISTORY_REQUEST() {
 		return MATCH_HISTORY_REQUEST;
 	}
@@ -146,10 +134,8 @@ public class EstadisticasPartidaService {
 	}
 
 
-	public void setPUUID() {
-		String accountJson = cliente.target(getPUUID_REQUEST()).request(MediaType.APPLICATION_JSON).get(String.class);
-		JsonObject objJson = new Gson().fromJson(accountJson, JsonObject.class);
-		this.PUUID = objJson.get("puuid").toString().replace("\"", "");
+	public void setPUUID(String puuid) {
+		this.PUUID = conseguirPuuid.getPUUID();
 	}
 
 
@@ -158,7 +144,7 @@ public class EstadisticasPartidaService {
 	}
 
 
-	public void setMatchId(String matchId) {
+	public void setMatchId() {
 		String accountJson = cliente.target(getMATCH_HISTORY_REQUEST()).request(MediaType.APPLICATION_JSON).get(String.class);
 		JsonElement elmJson = new Gson().fromJson(accountJson, JsonElement.class);
 		this.matchId = elmJson.toString().replaceAll("[\\[\\]\"]", "");
