@@ -6,9 +6,9 @@ import { environment } from 'src/environments/environment';
 })
 export class MasteryService {
   constructor(
-    private htttpClient : HttpClient
+    private httpClient : HttpClient
   ) { }
-  getMasteryService(){
-    this.htttpClient.get(`${environment.url}/worst/gameTime`)
+  getMasteryService(gameName: string, tagLine: string, championId: string){
+    return this.httpClient.get(`${environment.url}/worst/campeon/${gameName}/${tagLine}/${championId}`, { responseType: 'text' });
   }
 }

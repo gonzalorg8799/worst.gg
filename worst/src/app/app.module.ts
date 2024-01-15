@@ -5,10 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TiempoJugadoComponent } from './pages/tiempo-jugado/tiempo-jugado.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaestriaComponent } from './pages/maestria/maestria.component';
 @NgModule({
   declarations: [
     AppComponent,
-    TiempoJugadoComponent
+    TiempoJugadoComponent,
+    MaestriaComponent
   ],
   imports: [
     BrowserModule,
