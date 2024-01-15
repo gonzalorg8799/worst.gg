@@ -54,7 +54,6 @@ public class CampeonService {
 		
 		setCHAMPION_MASTERY_REQUEST();
 		getMastery();
-		System.out.println("MaestriaOK");
 		
 	}
 
@@ -62,7 +61,6 @@ public class CampeonService {
 	}
 	
 	public String DatosCampeon() {
-		System.out.println("todoOK");
 		return "Con el campeon de ID: " + getChampionId() 
 			+ "\nTienes nivel de maestría: " + getChampionLevel() 
 			+ "\nTienes "+ getChampionPoints() +" puntos de maestría, te quedan " + getChampionPointsUntilNextLvl() + " puntos de maestría para subir de nivel y has ganado " + getChampionPointsSinceLastLvl() + " puntos en este nivel"
