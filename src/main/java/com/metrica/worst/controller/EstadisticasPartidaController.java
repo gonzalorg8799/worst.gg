@@ -13,7 +13,7 @@ import com.metrica.worst.services.EstadisticasPartidaService;
 public class EstadisticasPartidaController {
 	/* ATRIBUTES */
 	EstadisticasPartidaService estadisticasPartida;
-	ConseguirPuuidService conseguirPuuid;
+	ConseguirPuuid conseguirPuuid;
 
 	@Autowired
 	public EstadisticasPartidaController(EstadisticasPartidaService estadisticasPartida) {
@@ -25,7 +25,7 @@ public class EstadisticasPartidaController {
 	@GetMapping("{gameName}/{tagLine}")
 	public String getSpells(@PathVariable String gameName, String tagLine) {
 		try {
-			conseguirPuuid = new ConseguirPuuidService(gameName, tagLine);
+			conseguirPuuid = new ConseguirPuuid(gameName, tagLine);
 			return estadisticasPartida.estadisticasPartida();
 		}
 		catch(RuntimeException e) {
