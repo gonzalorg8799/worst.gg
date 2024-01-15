@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.metrica.worst.services.ConseguirPuuid;
 import com.metrica.worst.services.TiempoJugado;
 
 @RestController
@@ -14,18 +15,21 @@ public class TiempoJuegoController {
 
 //	<<--FIELDS-->>
 	private TiempoJugado tiempoService;
-	
-//<<--CONSTRUCTOR-->>
+	private String puuid;
+
+//  <<--CONSTRUCTOR-->>
 	@Autowired
 	public TiempoJuegoController(TiempoJugado tiempoService) {
 		this.tiempoService=tiempoService;
 	}
 	
 //	<<--METHODS-->>
-	@GetMapping("/{puuid}")
-	public String getByPuuid(@PathVariable String puuid) {
+	@GetMapping("/{tagLine}/{gameName}")
+	public String getByPuuid(@PathVariable String tagLine, @PathVariable String gameName) {
 		try {
-			String resultado= tiempoService.get(puuid);
+			ConseguirPuuid conseguir = new ConseguirPuuid(tagLine, gameName);
+			this.puuid=conseguir.getPUUID();
+			String resultado= tiempoService.get(this.puuid);
 			return resultado;
 		}
 		catch(RuntimeException e) {
