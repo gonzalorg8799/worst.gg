@@ -1,16 +1,18 @@
 package com.metrica.worst.services;
 
+import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.metrica.worst.entities.ApiKey;
 
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 
-
+@Service
 public class EstadisticasPartidaService {
 		/*  WEB CLIENT ATRIBUTE */
 	Client cliente;
@@ -21,11 +23,8 @@ public class EstadisticasPartidaService {
 	
 	private String MATCH_HISTORY_REQUEST;
 	private String MATCH_DATA_REQUEST;
-	private final String apiKey;
 		
 		/* 	SUMMONER DATA 		*/
-	private String tagLine;
-	private String gameName;
 	private String PUUID;
 	private String matchId;
 	
@@ -42,11 +41,7 @@ public class EstadisticasPartidaService {
 		/* 	CONSTRUCTOR			*/
 	public EstadisticasPartidaService(
 			String tagLine, 
-			String gameName,
-			String apiKey) {
-		this.tagLine 			   = tagLine;
-		this.gameName			   = gameName;
-		this.apiKey				   = apiKey;
+			String gameName) {
 		
 		this.cliente 			   = ClientBuilder.newClient();
 		this.conseguirPuuid = new ConseguirPuuid(tagLine, gameName);
@@ -64,6 +59,9 @@ public class EstadisticasPartidaService {
 		this.setSpell3Casts();
 		this.setSpell4Casts();
 	}
+	
+	public EstadisticasPartidaService() {
+	}
 
 		/* METHODS 				*/
 	public String estadisticasPartida() {
@@ -78,7 +76,7 @@ public class EstadisticasPartidaService {
 
 	public void setMATCH_HISTORY_REQUEST(String puuid) {
 		MATCH_HISTORY_REQUEST = "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/" + getPUUID() 
-							  + "/ids?startTime=" + endHistoryTime  + "&endTime=" + startHistoryTime + "&type=&start=0&count=1&api_key=" + apiKey;
+							  + "/ids?startTime=" + endHistoryTime  + "&endTime=" + startHistoryTime + "&type=&start=0&count=1&api_key=" + ApiKey.getApikey();
 		
 	}
 
@@ -89,29 +87,8 @@ public class EstadisticasPartidaService {
 
 
 	public void setMATCH_DATA_REQUEST(String mATCH_DATA_REQUEST) {
-		MATCH_DATA_REQUEST = "https://europe.api.riotgames.com/lol/match/v5/matches/" + getMatchId() + "?api_key=" + apiKey;
+		MATCH_DATA_REQUEST = "https://europe.api.riotgames.com/lol/match/v5/matches/" + getMatchId() + "?api_key=" + ApiKey.getApikey();
 	}
-
-
-	public String getTagLine() {
-		return tagLine;
-	}
-
-
-	public void setTagLine(String tagLine) {
-		this.tagLine = tagLine;
-	}
-
-
-	public String getGameName() {
-		return gameName;
-	}
-
-
-	public void setGameName(String gameName) {
-		this.gameName = gameName;
-	}
-
 
 	public long getStartHistoryTime() {
 		return startHistoryTime;
@@ -192,7 +169,7 @@ public class EstadisticasPartidaService {
 
 
 	public String getApiKey() {
-		return apiKey;
+		return ApiKey.getApikey();
 	}
 	
 	private int getCasts(int spell) {

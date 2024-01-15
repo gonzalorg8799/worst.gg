@@ -10,23 +10,21 @@ import com.metrica.worst.services.ConseguirPuuid;
 import com.metrica.worst.services.EstadisticasPartidaService;
 
 @RestController
-@RequestMapping("worst/gameStats")
+@RequestMapping("/worst/gameStats")
 public class EstadisticasPartidaController {
 	/* ATRIBUTES */
-	EstadisticasPartidaService estadisticasPartida;
-	ConseguirPuuid conseguirPuuid;
-
 	@Autowired
-	public EstadisticasPartidaController(EstadisticasPartidaService estadisticasPartida) {
-		this.estadisticasPartida = estadisticasPartida;
+	EstadisticasPartidaService estadisticasPartida;
+	
+	public EstadisticasPartidaController() {
 	}
 	
 	/* METHOD */
 	
-	@GetMapping("{gameName}/{tagLine}")
-	public String getSpells(@PathVariable String gameName, String tagLine) {
+	@GetMapping("/{gameName}/{tagLine}")
+	public String getSpells(@PathVariable String gameName, @PathVariable String tagLine) {
 		try {
-			conseguirPuuid = new ConseguirPuuid(gameName, tagLine);
+			estadisticasPartida = new EstadisticasPartidaService(tagLine, gameName);
 			return estadisticasPartida.estadisticasPartida();
 		}
 		catch(RuntimeException e) {
