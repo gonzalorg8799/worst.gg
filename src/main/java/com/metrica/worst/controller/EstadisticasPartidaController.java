@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.metrica.worst.services.ConseguirPuuid;
 import com.metrica.worst.services.EstadisticasPartidaService;
 
 @RestController
