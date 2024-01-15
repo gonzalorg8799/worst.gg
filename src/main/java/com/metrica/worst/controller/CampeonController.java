@@ -23,13 +23,12 @@ public class CampeonController {
 	
 	@GetMapping("/{gameName}/{tagLine}/{championId}")
 	public String getMastery(@PathVariable String gameName, @PathVariable String tagLine, @PathVariable String championId) {
-//		try {
+		try {
 			campeonService = new CampeonService(tagLine, gameName,championId);
-			System.out.println(campeonService);
 			return campeonService.DatosCampeon();
-//		}
-//		catch(RuntimeException e) {
-//			return "No Champion Data";
-//		}
+		}
+		catch(RuntimeException e) {
+			return "No Champion Data";
+		}
 	}
 }
