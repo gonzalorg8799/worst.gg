@@ -1,0 +1,34 @@
+<h1>Tiempo jugado endpoint</h1>
+<p>Por favor introduzca su tagLine y su gameName</p>
+<form [formGroup]="form" novalidate (ngSubmit)="doGetTime()">
+<input
+  formControlName="tagLine"
+  placeholder="Enter your tagLine"
+  type="text"
+  class="w-full rounded bg-gray-100 border-gray-300 border-2"
+>
+<input
+  formControlName="gameName"
+  placeholder="Enter your gameName"
+  type="text"
+  class="w-full rounded bg-gray-100 border-gray-300 border-2"
+>
+<button type="submit">Enviar</button>
+<p>{{timePlayed}}</p>
+</form>
+<p>Estadisticas de partida endpoint</p>
+<p>Por favor introduzca su tagLine y su gameName</p>
+<form [formGroup]="form" novalidate (ngSubmit)="doGetStatistics()">
+  <input
+    formControlName="tagLine"
+    placeholder="Enter your tagLine"
+    type="text"
+    class="w-full rounded bg-gray-100 border-gray-300 border-2"
+  >
+  <input
+    formControlName="gameName"
+    placeholder="Enter your gameName"
+    type="text"
+    class="w-full rounded bg-gray-100 border-gray-300 border-2"
+  >
+  <button type="submit">Enviar</button>

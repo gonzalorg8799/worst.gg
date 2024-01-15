@@ -3,12 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PruebaTiempoJugadoComponent } from './pages/prueba-tiempo-jugado/prueba-tiempo-jugado.component';
+import { TiempoJugadoComponent } from './pages/tiempo-jugado/tiempo-jugado.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
-    PruebaTiempoJugadoComponent
+    TiempoJugadoComponent
   ],
   imports: [
     BrowserModule,

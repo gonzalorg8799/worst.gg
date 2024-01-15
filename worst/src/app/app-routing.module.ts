@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PruebaTiempoJugadoComponent } from './pages/prueba-tiempo-jugado/prueba-tiempo-jugado.component';
+import { TiempoJugadoComponent } from './pages/tiempo-jugado/tiempo-jugado.component';
 const routes: Routes = [
   {
     path: '',
@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: 'tiempoJugado',
-    component: PruebaTiempoJugadoComponent
+    component: TiempoJugadoComponent
   }
 ];
 
