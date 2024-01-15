@@ -6,6 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.metrica.worst.entities.ApiKey;
 
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -15,8 +16,8 @@ import jakarta.ws.rs.core.MediaType;
 @Service
 public class TiempoJugado {
 	private String puuid;
-	private final String apiKey = "";
-	
+	private final String apiKey = ApiKey.getApikey();
+
 	public TiempoJugado(String puuid) {
 		this.puuid=puuid;
 
@@ -33,11 +34,8 @@ public class TiempoJugado {
     	
     	servicio=cliente.target(url);
     	String crudo= servicio.request(MediaType.APPLICATION_JSON).get(String.class);
-    	String partida = new JsonParser()
-    			.parse(crudo)
-    			.getAsJsonArray()
-    			.get(0)
-    			.toString();
+    	JsonArray jsonArray = new JsonParser().parse(crudo).getAsJsonArray();
+    	String partida = jsonArray.get(0).toString();
     	return tempJuego(partida);
 	}
 	private String tempJuego(String partida) {
@@ -48,12 +46,9 @@ public class TiempoJugado {
 
     	servicio=cliente.target(url);
     	String crudo= servicio.request(MediaType.APPLICATION_JSON).get(String.class);
-    	int tiempo = new JsonParser()
-    			.parse(crudo)
-    			.getAsJsonObject()
-    			.getAsJsonObject("info")
-    			.get("gameDuration")
-    			.getAsInt();
+    	JsonObject jsonObject = new JsonParser().parse(crudo).getAsJsonObject();
+    	JsonElement data = jsonObject.getAsJsonObject("info").get("gameDuration");
+    	int tiempo = data.getAsInt();
     	return "la partida ha durado "+tiempo/60+" min";
     	
 	}
