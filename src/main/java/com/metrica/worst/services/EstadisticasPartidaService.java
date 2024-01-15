@@ -66,9 +66,8 @@ public class EstadisticasPartidaService {
 	}
 
 		/* METHODS 				*/
-	
-	public void estadisticasPartida() {
-		System.out.println("Has usado la Q: " + spell1Casts + " veces, \nHas usado la W: " + spell2Casts + " veces, \nHas usado la E: " + spell3Casts + " veces, \nHas usado la R: " + spell4Casts + " veces.");
+	public String estadisticasPartida() {
+		return "Has usado la Q: " + spell1Casts + " veces, \nHas usado la W: " + spell2Casts + " veces, \nHas usado la E: " + spell3Casts + " veces, \nHas usado la R: " + spell4Casts + " veces."; 
 	}
 	
 		/* GETTERS & SETTERS 	*/

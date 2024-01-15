@@ -15,18 +15,17 @@ import jakarta.ws.rs.core.MediaType;
 @Service
 public class TiempoJugado {
 	private String puuid;
-	private String apiKey;
+	private final String apiKey = "";
 	
-	public TiempoJugado(String puuid, String apiKey) {
+	public TiempoJugado(String puuid) {
 		this.puuid=puuid;
-		this.apiKey=apiKey;
+
 	}
 	public TiempoJugado() {
 		
 	}
-	public String get(String puuid, String apiKey) {
+	public String get(String puuid) {
 		this.puuid=puuid;
-		this.apiKey=apiKey;
 		String url = "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/"+this.puuid+"/ids?start=0&count=20&api_key="+this.apiKey;
 		
 		Client cliente = ClientBuilder.newClient();
@@ -34,8 +33,11 @@ public class TiempoJugado {
     	
     	servicio=cliente.target(url);
     	String crudo= servicio.request(MediaType.APPLICATION_JSON).get(String.class);
-    	JsonArray jsonArray = new JsonParser().parse(crudo).getAsJsonArray();
-    	String partida = jsonArray.get(0).toString();
+    	String partida = new JsonParser()
+    			.parse(crudo)
+    			.getAsJsonArray()
+    			.get(0)
+    			.toString();
     	return tempJuego(partida);
 	}
 	private String tempJuego(String partida) {
@@ -46,9 +48,12 @@ public class TiempoJugado {
 
     	servicio=cliente.target(url);
     	String crudo= servicio.request(MediaType.APPLICATION_JSON).get(String.class);
-    	JsonObject jsonObject = new JsonParser().parse(crudo).getAsJsonObject();
-    	JsonElement data = jsonObject.getAsJsonObject("info").get("gameDuration");
-    	int tiempo = data.getAsInt();
+    	int tiempo = new JsonParser()
+    			.parse(crudo)
+    			.getAsJsonObject()
+    			.getAsJsonObject("info")
+    			.get("gameDuration")
+    			.getAsInt();
     	return "la partida ha durado "+tiempo/60+" min";
     	
 	}
