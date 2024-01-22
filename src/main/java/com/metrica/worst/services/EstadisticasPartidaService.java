@@ -174,44 +174,26 @@ public class EstadisticasPartidaService {
 	
 	private int getCasts(int spell) {
 		String dataJson = cliente.target(getMATCH_DATA_REQUEST()).request(MediaType.APPLICATION_JSON).get(String.class);
-		int partsPosition = 0;
 		
-		//Sacando posicion participante
-		JsonObject metadataJson = new Gson().fromJson(dataJson, JsonObject.class);
-		JsonElement dataJson1 = metadataJson.get("metadata");
-		String metadata = dataJson1.toString();
-		
-		JsonObject metadataJson2 = new Gson().fromJson(metadata, JsonObject.class);
-		JsonArray arrayParts = metadataJson2.getAsJsonArray("participants");
-		
-		for(JsonElement elemento : arrayParts) {
-			if(elemento.toString().replace("\"", "").equals(getPUUID())) { break; }
-			partsPosition++;
-		}
+		//Getting participant position
+		int partsPosition = getSummonerPosition(dataJson);
 		
 		//Sacando habilidades
-		JsonObject objJson = new Gson().fromJson(dataJson, JsonObject.class);
-		JsonElement infoJson = objJson.get("info");
-		String info = infoJson.toString();
+		JsonObject matchDataJson = new Gson().fromJson(dataJson, JsonObject.class);
+		JsonElement spellCasts = matchDataJson.get("participants").getAsJsonArray().get(partsPosition).getAsJsonObject().get("info")
+				  .getAsJsonArray().getAsJsonObject().get("spell" + spell + "Casts");
 		
-		JsonObject objJson2 = new Gson().fromJson(info, JsonObject.class);
-		JsonArray participants = objJson2.getAsJsonArray("participants");
+		return Integer.parseInt(spellCasts.toString()); 
+	}
+	
+	private int getSummonerPosition(String dataJson) {
+		JsonObject metadataJson = new Gson().fromJson(dataJson, JsonObject.class);
+		JsonArray participantsArray = metadataJson.get("metadata").getAsJsonArray().getAsJsonObject()
+												  .get("participants").getAsJsonArray();
 		
-		
-		int contador = 0;
-		String spellCasts = "";
-		for(JsonElement elemento : participants) {
-			if(contador == partsPosition) {
-				spellCasts = elemento.toString();
-				break;
-			}
-			contador++;
-		}
-		
-		JsonObject objJson3 = new Gson().fromJson(spellCasts, JsonObject.class);
-		JsonElement spellCastsJson = objJson3.get("spell" + Integer.toString(spell) + "Casts");
-		
-		return Integer.parseInt(spellCastsJson.toString()); 
+		for(JsonElement elemento : participantsArray) {
+			if(elemento.toString().replace("\"", "").equals(getPUUID())) { return elemento.getAsInt(); }
+		} return 0;
 	}
 	
 }
