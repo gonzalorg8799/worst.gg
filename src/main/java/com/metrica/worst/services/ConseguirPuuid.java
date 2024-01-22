@@ -1,0 +1,77 @@
+package com.metrica.worst.services;
+
+import org.springframework.stereotype.Service;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.metrica.worst.entities.ApiKey;
+
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.MediaType;
+
+@Service
+public class ConseguirPuuid {
+	/* ATRIBUTES */
+	Client cliente;
+	WebTarget target;
+	
+	private String PUUID_REQUEST;
+	
+	private String tagLine;
+
+	private String gameName;
+	private String PUUID;
+	
+	/* CONSTRUCTOR */
+	public ConseguirPuuid(String tagLine, String gameName) {
+		this.tagLine  = tagLine;
+		this.gameName = gameName;
+		
+		this.cliente  = ClientBuilder.newClient(); 
+		
+		this.setPUUID_REQUEST(gameName, tagLine);
+		this.setPUUID(this.gameName, this.tagLine);
+	}
+	
+	public ConseguirPuuid() {
+	}
+	
+	/* GETTERS SETTERS */
+	public String getTagLine() {
+		return tagLine;
+	}
+
+	public void setTagLine(String tagLine) {
+		this.tagLine = tagLine;
+	}
+
+	public String getGameName() {
+		return gameName;
+	}
+
+	public void setGameName(String gameName) {
+		this.gameName = gameName;
+	}
+
+	public String getPUUID() {
+		return PUUID;
+	}
+
+	public void setPUUID(String gameName, String tagLine) {
+		String accountJson = cliente.target(getPUUID_REQUEST()).request(MediaType.APPLICATION_JSON).get(String.class);
+		JsonObject objJson = new Gson().fromJson(accountJson, JsonObject.class);
+		this.PUUID = objJson.get("puuid").toString().replace("\"", "");
+	}
+	
+	public String getPUUID_REQUEST() {
+		return PUUID_REQUEST;
+	}
+	
+	public void setPUUID_REQUEST(String gameNameSet, String tagLineSet) {
+		this.PUUID_REQUEST = "https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/"  
+				+ gameNameSet + "/" + tagLineSet + "?api_key=" + ApiKey.getApikey();
+	}
+	
+}

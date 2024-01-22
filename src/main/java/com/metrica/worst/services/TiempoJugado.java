@@ -1,5 +1,55 @@
 package com.metrica.worst.services;
 
-public class TiempoJugado {
+import org.springframework.stereotype.Service;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.metrica.worst.entities.ApiKey;
+
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.MediaType;
+
+@Service
+public class TiempoJugado {
+	private String puuid;
+	private final String apiKey = ApiKey.getApikey();
+
+	public TiempoJugado(String puuid) {
+		this.puuid=puuid;
+
+	}
+	public TiempoJugado() {
+		
+	}
+	public String get(String puuid) {
+		this.puuid=puuid;
+		String url = "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/"+this.puuid+"/ids?start=0&count=20&api_key="+this.apiKey;
+		
+		Client cliente = ClientBuilder.newClient();
+    	WebTarget servicio;
+    	
+    	servicio=cliente.target(url);
+    	String crudo= servicio.request(MediaType.APPLICATION_JSON).get(String.class);
+    	JsonArray jsonArray = new JsonParser().parse(crudo).getAsJsonArray();
+    	String partida = jsonArray.get(0).toString();
+    	return tempJuego(partida);
+	}
+	private String tempJuego(String partida) {
+		partida = partida.replace("\"", "");
+		String url= "https://europe.api.riotgames.com/lol/match/v5/matches/"+partida+"?api_key="+this.apiKey;
+		Client cliente = ClientBuilder.newClient();
+    	WebTarget servicio;
+
+    	servicio=cliente.target(url);
+    	String crudo= servicio.request(MediaType.APPLICATION_JSON).get(String.class);
+    	JsonObject jsonObject = new JsonParser().parse(crudo).getAsJsonObject();
+    	JsonElement data = jsonObject.getAsJsonObject("info").get("gameDuration");
+    	int tiempo = data.getAsInt();
+    	return "la partida ha durado "+tiempo/60+" min";
+    	
+	}
 }

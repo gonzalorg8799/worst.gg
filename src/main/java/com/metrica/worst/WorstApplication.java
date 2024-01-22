@@ -9,5 +9,4 @@ public class WorstApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WorstApplication.class, args);
 	}
-
 }
